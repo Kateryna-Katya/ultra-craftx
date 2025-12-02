@@ -1165,3 +1165,148 @@ img {
         width: 100%;
     }
 }
+/* =========================================
+   INTERNAL PAGES (Legal & Text Pages)
+   ========================================= */
+
+.pages {
+    position: relative;
+    padding: 140px 0 80px;
+    /* Отступ сверху под фиксированный хедер */
+    min-height: 100vh;
+    overflow: hidden;
+    background: var(--bg-dark);
+}
+
+/* Автоматическое фоновое свечение (через псевдо-элементы) */
+/* Не нужно добавлять div-ы в HTML, они появятся сами */
+.pages::before,
+.pages::after {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.pages::before {
+    background: var(--purple);
+    top: -150px;
+    right: -150px;
+}
+
+.pages::after {
+    background: var(--accent);
+    bottom: -150px;
+    left: -150px;
+}
+
+/* Контейнер для текста (уже, чем обычный, для удобства чтения) */
+.pages .container {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    /* Оптимальная ширина для чтения */
+}
+
+/* Типографика страниц */
+.pages h1 {
+    font-family: var(--font-head);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--primary);
+    margin-bottom: 50px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.pages h2 {
+    font-family: var(--font-head);
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-top: 60px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Декоративная линия слева от H2 */
+.pages h2::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 24px;
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+.pages p {
+    color: var(--secondary);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.pages strong {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.pages a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(204, 255, 0, 0.3);
+    transition: var(--transition);
+}
+
+.pages a:hover {
+    border-bottom-color: var(--accent);
+    color: #fff;
+}
+
+/* Списки */
+.pages ul,
+.pages ol {
+    margin-bottom: 30px;
+    padding-left: 10px;
+}
+
+.pages li {
+    color: var(--secondary);
+    margin-bottom: 15px;
+    padding-left: 25px;
+    position: relative;
+    line-height: 1.6;
+}
+
+/* Кастомные маркеры списка */
+.pages ul li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: monospace;
+    font-weight: bold;
+}
+
+.pages ol {
+    counter-reset: item;
+}
+
+.pages ol li {
+    padding-left: 35px;
+}
+
+.pages ol li::before {
+    counter-increment: item;
+    content: counter(item) ".";
+    position: absolute;
+    left: 0;
+    color: var(--purple);
+    font-weight: bold;
+    font-family: var(--font-head);
+}
