@@ -165,5 +165,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1500);
         });
     }
+/* ==========================================================================
+       5. COOKIE POPUP LOGIC
+       ========================================================================== */
+    const cookiePopup = document.getElementById('cookiePopup');
+    const acceptBtn = document.getElementById('acceptCookies');
 
+    // Проверяем, было ли уже согласие
+    if (!localStorage.getItem('cookiesAccepted')) {
+        // Показываем с задержкой в 2 секунды для плавности
+        setTimeout(() => {
+            cookiePopup.classList.add('show');
+        }, 2000);
+    }
+
+    // Обработка клика
+    if (acceptBtn) {
+        acceptBtn.addEventListener('click', () => {
+            // Скрываем попап
+            cookiePopup.classList.remove('show');
+            
+            // Сохраняем выбор в браузере пользователя
+            localStorage.setItem('cookiesAccepted', 'true');
+        });
+    }
 });

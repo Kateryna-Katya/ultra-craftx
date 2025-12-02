@@ -1079,3 +1079,89 @@ img {
 .error-msg {
     color: #ff4d4d;
 }
+/* --- COOKIE POPUP --- */
+.cookie-popup {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    /* Скрыт внизу */
+    width: 90%;
+    max-width: 500px;
+    background: rgba(20, 20, 24, 0.9);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    z-index: 9999;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.cookie-popup.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.cookie-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cookie-icon {
+    font-size: 1.5rem;
+    color: var(--accent);
+    background: rgba(255, 255, 255, 0.05);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.cookie-text h4 {
+    font-family: var(--font-head);
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: var(--primary);
+}
+
+.cookie-text p {
+    font-size: 0.8rem;
+    color: var(--secondary);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.cookie-text a {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+/* Адаптив для мобильных (на весь низ экрана) */
+@media (max-width: 480px) {
+    .cookie-popup {
+        width: 95%;
+        bottom: 10px;
+        padding: 15px;
+    }
+
+    .cookie-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .cookie-text {
+        margin-bottom: 10px;
+    }
+
+    #acceptCookies {
+        width: 100%;
+    }
+}
