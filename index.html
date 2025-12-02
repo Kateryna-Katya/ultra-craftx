@@ -1,56 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/test-two/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
-    <script type="module" crossorigin src="/test-two/index.js"></script>
-    <link rel="stylesheet" crossorigin href="/test-two/assets/styles-guStct1H.css">
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ultra-CraftX | Карьерный апгрейд нового поколения</title>
+
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script type="module" crossorigin src="/ultra-craftx/index.js"></script>
+    <link rel="stylesheet" crossorigin href="/ultra-craftx/assets/styles-BXMuTMCB.css">
   </head>
   <body>
     <header class="header">
-  <div class="container">
-    <nav class="nav">
-      <a class="nav-logo" href="./index.html" aria-label="Site logo">
-        <svg class="nav-logo-icon" width="100" height="30">
-          <use href="{=$icon-path}"></use>
-        </svg>
-      </a>
-      <ul class="nav-list">
-        <li class="nav-item">
-          <a class="nav-link {=$highlight-act}" href="./page-2.html">Page 2</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {=$highlight-curr}" href="./page-3.html">Page 3</a>
-        </li>
+  <div class="container header__container">
+    <a href="#" class="header__logo">
+      Ultra<span class="text-accent">CraftX</span>
+    </a>
+
+    <nav class="header__nav" id="nav-menu">
+      <ul class="header__list">
+        <li class="header__item"><a href="#" class="header__link">Главная</a></li>
+        <li class="header__item"><a href="#methodology" class="header__link">Методология</a></li>
+        <li class="header__item"><a href="#solutions" class="header__link">Решения</a></li>
+        <li class="header__item"><a href="#blog" class="header__link">Инсайты</a></li>
+        <li class="header__item"><a href="#reviews" class="header__link">Отзывы</a></li>
+        <li class="header__item"><a href="#faq" class="header__link">FAQ</a></li>
       </ul>
+      <button class="header__close" id="nav-close"><i class="fa-solid fa-xmark"></i></button>
     </nav>
+
+    <div class="header__actions">
+      <a href="#contact" class="btn btn--small header__btn">Связаться</a>
+      <button class="header__burger" id="nav-toggle">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+    </div>
   </div>
 </header>
 
-
-    <main>
+    <main class="main">
       <!-- Loads the specified .html file -->
       
     </main>
 
     <footer class="footer">
-  <div class="container">
-    <p class="footer-desc">
-      Made with ✨ by
-      <a
-        class="footer-link"
-        href="https://goit.global/ua/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        GoIT team
-      </a>
-    </p>
+  <div class="container footer__container">
+    <div class="footer__col">
+      <a href="#" class="footer__logo">Ultra<span class="text-accent">CraftX</span></a>
+      <p class="footer__desc">
+        Инновационная технология для построения карьеры. Переосмыслите подход к развитию с экспертной поддержкой.
+      </p>
+      <div class="footer__socials">
+        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <div class="footer__col">
+      <h3 class="footer__title">Навигация</h3>
+      <ul class="footer__list">
+        <li><a href="#methodology">Методология</a></li>
+        <li><a href="#solutions">Решения</a></li>
+        <li><a href="#blog">Блог</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h3 class="footer__title">Правовая информация</h3>
+      <ul class="footer__list">
+        <li><a href="privacy.html">Политика конфиденциальности</a></li>
+        <li><a href="cookies.html">Cookie Policy</a></li>
+        <li><a href="terms.html">Условия использования</a></li>
+        <li><a href="return.html">Политика возврата</a></li>
+        <li><a href="disclaimer.html">Отказ от ответственности</a></li>
+        <li><a href="personal-data-policy.html">Обработка данных</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h3 class="footer__title">Контакты</h3>
+      <ul class="footer__contacts">
+        <li>
+          <i class="fa-solid fa-envelope text-accent"></i>
+          <a href="mailto:hello@ultra-craftx.life">hello@ultra-craftx.life</a>
+        </li>
+        <li>
+          <i class="fa-solid fa-phone text-accent"></i>
+          <a href="tel:+390212345678">+39 02 1234 5678</a>
+        </li>
+        <li>
+          <i class="fa-solid fa-location-dot text-accent"></i>
+          <span>Via Alessandro Volta, 12, 20121 Milano MI, Italy</span>
+        </li>
+      </ul>
+      <p class="footer__note">Предложение активно только в странах ЕС.</p>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container">
+      <p>&copy; 2025 Ultra-CraftX. Все права защищены.</p>
+    </div>
   </div>
 </footer>
-
 
   </body>
 </html>
