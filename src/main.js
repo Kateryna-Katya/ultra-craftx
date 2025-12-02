@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     /* ==========================================================================
        1. UI & NAVIGATION (Меню и Хедер)
        ========================================================================== */
@@ -46,13 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
        ========================================================================== */
     // Проверка наличия библиотек для предотвращения ошибок
     if (typeof gsap !== 'undefined' && typeof SplitType !== 'undefined' && document.querySelector('#hero-title')) {
-        
+
         gsap.registerPlugin(ScrollTrigger);
 
         // Разбиваем текст
-        const heroTitle = new SplitType('#hero-title', { 
+        const heroTitle = new SplitType('#hero-title', {
             types: 'words, chars',
-            tagName: 'span' 
+            tagName: 'span'
         });
 
         const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
@@ -119,55 +119,103 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    /* ==========================================================================
-       4. CONTACT FORM (Валидация + Имитация отправки)
-       ========================================================================== */
-    const contactForm = document.getElementById('contactForm');
-    const formMessage = document.getElementById('formMessage');
-    const captchaInput = document.getElementById('captchaInput');
+   /* ==========================================================================
+   CONTACT FORM — Полная валидация + имитация отправки
+   ========================================================================== */
+const contactForm = document.getElementById('contactForm');
+const formMessage = document.getElementById('formMessage');
+const captchaInput = document.getElementById('captchaInput');
+const captchaLabel = document.getElementById('captchaLabel');
 
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Простая математическая капча (3 + 4)
-            if (captchaInput.value.trim() !== '7') {
-                formMessage.textContent = 'Ошибка: Неверный ответ на пример.';
-                formMessage.className = 'form-message error-msg';
-                // Анимация тряски для поля
-                captchaInput.style.borderColor = 'red';
-                setTimeout(() => captchaInput.style.borderColor = '', 2000);
-                return;
-            }
+function showFieldError(input, message) {
+    input.classList.add('input-error');
+    input.style.borderColor = "#ff4d4d";
 
-            // Кнопка в состояние загрузки
-            const btn = contactForm.querySelector('button');
-            const originalText = btn.textContent;
-            btn.textContent = 'Отправка...';
-            btn.disabled = true;
-            btn.style.opacity = '0.7';
-
-            // Имитация AJAX запроса (1.5 сек)
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.disabled = false;
-                btn.style.opacity = '1';
-                
-                // Успех
-                formMessage.textContent = 'Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.';
-                formMessage.className = 'form-message success-msg';
-                
-                // Очистка формы
-                contactForm.reset();
-                
-                // Удаление сообщения через 5 секунд
-                setTimeout(() => {
-                    formMessage.textContent = '';
-                    formMessage.className = 'form-message';
-                }, 5000);
-            }, 1500);
-        });
+    let error = input.parentNode.querySelector('.field-error');
+    if (!error) {
+        error = document.createElement('div');
+        error.className = 'field-error';
+        input.parentNode.appendChild(error);
     }
+    error.textContent = message;
+
+    // Анимация "shake"
+    input.style.animation = "shake 0.3s";
+    setTimeout(() => (input.style.animation = ""), 300);
+}
+
+function clearFieldError(input) {
+    input.classList.remove('input-error');
+    input.style.borderColor = "";
+    let error = input.parentNode.querySelector('.field-error');
+    if (error) error.remove();
+}
+
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        let isValid = true;
+        const name = contactForm.name;
+        const email = contactForm.email;
+        const phone = contactForm.phone;
+
+        // Очистка прошлых ошибок
+        [name, email, phone, captchaInput].forEach(clearFieldError);
+
+        // ---- Проверка имени ----
+        if (name.value.trim().length < 2) {
+            showFieldError(name, "Введите корректное имя");
+            isValid = false;
+        }
+
+        // ---- Проверка Email ----
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.value.trim())) {
+            showFieldError(email, "Введите корректный Email");
+            isValid = false;
+        }
+
+        // ---- Проверка телефона ----
+        const phoneRegex = /^[0-9+()\-\s]{6,}$/;
+        if (!phoneRegex.test(phone.value.trim())) {
+            showFieldError(phone, "Введите корректный номер телефона");
+            isValid = false;
+        }
+
+        // ---- Математическая капча ----
+        if (captchaInput.value.trim() !== "7") {
+            showFieldError(captchaInput, "Неверный ответ");
+            isValid = false;
+        }
+
+        if (!isValid) return;
+
+        // ---- Кнопка в состояние загрузки ----
+        const button = contactForm.querySelector("button");
+        const btnText = button.textContent;
+        button.textContent = "Отправка...";
+        button.disabled = true;
+        button.style.opacity = "0.7";
+
+        // Имитация отправки
+        setTimeout(() => {
+            button.textContent = btnText;
+            button.disabled = false;
+            button.style.opacity = "1";
+
+            formMessage.textContent = "Спасибо! Ваша заявка отправлена.";
+            formMessage.className = "form-message success-msg";
+
+            contactForm.reset();
+
+            setTimeout(() => {
+                formMessage.textContent = "";
+                formMessage.className = "form-message";
+            }, 5000);
+        }, 1500);
+    });
+}
 
     /* ==========================================================================
        5. COOKIE POPUP (Попап с памятью)
